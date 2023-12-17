@@ -25,7 +25,7 @@ do
 
   # Search for the mac address in the log files using find to select all the files we want
   # and then grep to search for the mac address in those files.
-  search_result=$(find "$log_directory" -name 'dhcpd.log.[1-30]' -exec grep "$cleaned_entry" {} + | wc -l)
+  search_result=$(find "${log_directory}" -regextype posix-extended -regex '.*(\b[1-9]\b|\b[12][0-9]\b|30)' -exec grep "$cleaned_entry" {} + | wc -l)
 
   # If the search result is greater than 0, then we found the mac address in the log files.
   # If not, then we echo the mac address to the user.
